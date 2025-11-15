@@ -7,8 +7,7 @@
  * and fill in the values.
  *
  * This file contains tdddhe following configurations:e
- *
- * * Database settings
+ *dddd
  * * Secret keys
  * * Database table prefix
  * * Localized language
