@@ -2,24 +2,18 @@ pipeline {
     agent any
 
     stages {
-        stage('QA Build') {
+        stage('Test Build') {
             steps {
-                echo "QA Branch Build Started"
-                
-                // Your QA build steps here
-                sh 'echo Running QA pipeline tasks...'
-                
-                // Example commands:
-                // sh './deploy_qa.sh'
-                // sh 'composer install'
-                // sh 'php bin/magento setup:upgrade'
+                echo "Jenkins Build Triggered Successfully!"
+                echo "Branch Name: ${env.BRANCH_NAME}"
+                sh 'echo This is a test build'
             }
         }
     }
 
     post {
         always {
-            echo "QA Build Finished"
+            echo "Build finished"
         }
     }
 }
