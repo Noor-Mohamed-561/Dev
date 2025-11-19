@@ -6,7 +6,7 @@
  * You don't have to use the web site, you can copy this file to "wp-config.php"
  * and fill in the values.
  *
- * This file contaisns tssdddhe follwwwwwwowing configurations:e
+ * This file contaisns tsssssssdddhe follwwwwwwowing configurations:e
  *dddd
  * * Secret keys
  * * Database table prefix
