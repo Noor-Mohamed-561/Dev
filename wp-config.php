@@ -8,7 +8,7 @@
  *
  * This file contaisns tsssssssdddhe follwwwwwwowing configurations:e
  *dddd
- * * Secret keys
+ * * Secret keysww
  * * Database table prefix
  * * Localized language
  * * ABSPATH
