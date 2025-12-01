@@ -1,89 +1,12 @@
+// Jenkinsfile (Declarative) - simple echo example
 pipeline {
-    agent { node { label 'master' } }
-
-    // Trigger on GitHub push
-    triggers {
-        githubPush()
+  agent any
+  stages {
+    stage('Info') {
+      steps {
+        echo "Running branch: ${env.BRANCH_NAME}"
+        echo "Hello from Multibranch Pipeline!"
+      }
     }
-
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
-        disableConcurrentBuilds()
-    }
-
-    stages {
-        // Clean workspace
-        stage('Clean workspace') {
-            steps {
-                cleanWs()
-            }
-        }
-
-        // Checkout GitHub repository
-        stage('Checkout GitHub') {
-            steps {
-                script {
-                    def allowedBranches = ['qa', 'integration', 'integration_upgrade', 'staging', 'production']
-                    def targetBranch = env.BRANCH_NAME ?: env.GIT_BRANCH
-
-                    if (targetBranch.startsWith("origin/")) {
-                        targetBranch = targetBranch.replace("origin/", "")
-                    }
-
-                    if (!allowedBranches.contains(targetBranch)) {
-                        currentBuild.result = 'NOT_BUILT'
-                        error("Branch ${targetBranch} is not allowed to trigger this pipeline")
-                    }
-
-                    // Checkout the branch
-                    checkout([$class: 'GitSCM',
-                        branches: [[name: "*/${targetBranch}"]],
-                        doGenerateSubmoduleConfigurations: false,
-                        extensions: [],
-                        submoduleCfg: [],
-                        userRemoteConfigs: [[
-                            credentialsId: 'YOUR_GITHUB_CREDENTIALS_ID',
-                            url: 'git@github.com:YOUR_ORG/YOUR_REPO.git'
-                        ]]
-                    ])
-
-                    // Export the branch name to use in later stages
-                    env.TARGET_BRANCH = targetBranch
-                }
-            }
-        }
-
-        // Deploy based on branch
-        stage('Deploy Based on Branch') {
-            steps {
-                script {
-                    switch (env.TARGET_BRANCH) {
-                        case 'qa':
-                            build job: 'APAC_QA_DEPLOYMENT', parameters: [
-                                string(name: 'BRANCH_NAME', value: env.TARGET_BRANCH)
-                            ]
-                            break
-                        case ['integration', 'integration_upgrade']:
-                            build job: 'APAC_INTEGRATION_DEPLOYMENT', parameters: [
-                                string(name: 'BRANCH_NAME', value: env.TARGET_BRANCH)
-                            ]
-                            break
-                        case 'staging':
-                            build job: 'APAC_STAGING_DEPLOYMENT', parameters: [
-                                string(name: 'BRANCH_NAME', value: env.TARGET_BRANCH)
-                            ]
-                            break
-                        case 'production':
-                            build job: 'APAC_PRODUCTION_DEPLOYMENT', parameters: [
-                                string(name: 'BRANCH_NAME', value: env.TARGET_BRANCH)
-                            ]
-                            break
-                        default:
-                            currentBuild.result = 'FAILURE'
-                            error("Branch ${env.TARGET_BRANCH} has no deployment job configured")
-                    }
-                }
-            }
-        }
-    }
+  }
 }
