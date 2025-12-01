@@ -5,7 +5,7 @@ pipeline {
     stage('Info') {
       steps {
         echo "Running branch: ${env.BRANCH_NAME}"
-        echo "Hello from Multibranch Pipeline!"
+        echo "Hello from QA Pipeline!"
       }
     }
   }
