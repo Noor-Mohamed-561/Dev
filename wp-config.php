@@ -3,7 +3,7 @@
  * The base configuration for WordPress
  *eeeeees
  * The wp-config.php creation script uses this file during the installation.
- * You don't have to use the web site, you can copy this file to "wp-config.php"
+ * You don't have to use the web site, you can copsssy this file to "wp-config.php"
  * and fill in 111the values.1
  *
  * This file contaisns tss1sssssdddhe follwwwwwwowing configurations:e
