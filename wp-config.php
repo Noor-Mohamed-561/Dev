@@ -1,4 +1,4 @@
-<?php
+1<?php
 /**qqq
  * The base configuration for WordPress
  *eeeeee
@@ -7,8 +7,7 @@
  * and fill in the values.
  *
  * This file contains tssdddhe follwwwwwwowing configurations:e
- *dddd
- * * Secret keys1111
+1111 * * Secret keys1111
  * * Database table prefix
  * * Localized language
  * * ABSPATH
